@@ -128,4 +128,8 @@ public class SwerveModule {
     public double getWheelRadiusCharacterizationPosition() {
         return io.getDriveEncoderPosition();
     }
+
+    public Distance getWheelDiameter() {
+        return io.getWheelDiameter();
+    }
 }

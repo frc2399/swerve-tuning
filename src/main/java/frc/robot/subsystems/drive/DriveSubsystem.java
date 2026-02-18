@@ -598,4 +598,8 @@ public class DriveSubsystem extends SubsystemBase implements DriveBase {
                 }
                 return values;
         }
+
+        public Distance getWheelDiameter() {
+                return modules[0].getWheelDiameter();
+        }
 }

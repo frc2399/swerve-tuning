@@ -7,6 +7,8 @@
 
 package frc.robot.util;
 
+import static edu.wpi.first.units.Units.Meters;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -145,6 +147,8 @@ import frc.robot.subsystems.drive.DriveSubsystem;
                             }
                             double wheelRadius =
                                 (state.gyroDelta * drive.DRIVE_BASE_RADIUS) / wheelDelta;
+                            wheelRadius =
+                                        wheelRadius * drive.getWheelDiameter().div(2.0).in(Meters);
 
                             NumberFormat formatter = new DecimalFormat("#0.000");
                             System.out.println(
