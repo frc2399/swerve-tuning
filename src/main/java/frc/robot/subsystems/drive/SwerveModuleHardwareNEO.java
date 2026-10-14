@@ -53,7 +53,7 @@ public class SwerveModuleHardwareNEO implements SwerveModuleIO {
 
         // drivings are NEOs, turnings are NEO 550s
         // THIS IS 13 ON COMP BOT
-        private static final int DRIVING_MOTOR_PINION_TEETH = 14;
+        private static final int DRIVING_MOTOR_PINION_TEETH = 13;
 
         // Invert the turning encoder, since the output shaft rotates in the opposite
         // direction of the steering motor in the MAXSwerve Module.

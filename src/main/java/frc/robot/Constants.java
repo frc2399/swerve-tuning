@@ -58,13 +58,16 @@ public final class Constants {
     public static final double SLOW_DRIVE_FACTOR = 0.25;
     public static final double DRIVE_FACTOR = 1.0;
 
-    public static final Distance ALPHA_TRACK_WIDTH = Meters.of(0.4954);
+    public static final Distance MOZART_TRACK_LENGTH = Meters.of(0.4954);
     public static final Distance MOZART_TRACK_WIDTH = Inches.of(26 - (2 * 1.75));
     // replace if needed
 
     // we got the 2 below numbers from blake at 6:57 bon 03/13
-    public static final Distance BETA_XTRACK_WIDTH = Inches.of(24.5);
-    public static final Distance BETA_YTRACK_WIDTH = Inches.of(26.5);
+    public static final Distance BETA_TRACK_WIDTH = Inches.of(20.5);
+    public static final Distance BETA_TRACK_LENGTH = Inches.of(26.5);
+
+    public static final Distance COMP_TRACK_WIDTH = Inches.of(20.5);
+    public static final Distance COMP_TRACK_LENGTH = Inches.of(26.5);
 
   }
 }

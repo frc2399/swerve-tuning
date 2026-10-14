@@ -5,6 +5,7 @@ import frc.robot.Constants.MotorIdConstants;
 
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.drive.SwerveModule;
+import frc.robot.subsystems.drive.SwerveModuleHardwareNEO;
 import frc.robot.subsystems.drive.SwerveModuleHardwareVortex;
 import frc.robot.subsystems.drive.SwerveModulePlacebo;
 import frc.robot.subsystems.gyro.Gyro;
@@ -20,15 +21,15 @@ public class SubsystemFactory {
     // we may need more, depending on how many subsystem + rio we have
     private static final String MOZART_SERIAL_NUMBER = "030ee8c8";
     private static final String BUBBLES_SERIAL_NUMBER = "030fc267";
-    private static final String BETA_SERIAL_NUMBER = "";
-    private static final String COMP_SERIAL_NUMBER = "";
+    private static final String BETA_SERIAL_NUMBER = "030589d5";
+    private static final String ALPHA_SERIAL_NUMBER = "03260A64";
 
     public enum RobotType {
         MOZART,
         BUBBLES,
         SIM,
         BETA,
-        COMP
+        ALPHA
     }
 
     private RobotType robotType;
@@ -41,8 +42,8 @@ public class SubsystemFactory {
         // } else
         if (serialNum.equals(BETA_SERIAL_NUMBER)) {
             robotType = RobotType.BETA;
-        } else if (serialNum.equals(COMP_SERIAL_NUMBER)) {
-            robotType  = RobotType.COMP;
+        } else if (serialNum.equals(ALPHA_SERIAL_NUMBER)) {
+            robotType  = RobotType.ALPHA;
         } else if (serialNum.equals(BUBBLES_SERIAL_NUMBER)) {
             robotType = RobotType.BUBBLES;
         } else if (serialNum.equals(MOZART_SERIAL_NUMBER)) {
@@ -62,29 +63,8 @@ public class SubsystemFactory {
         SwerveModule frontRight;
         SwerveModule rearRight;
 
-        // if (robotType == RobotType.ALPHA) {
-        //     frontLeft = new SwerveModule(new SwerveModuleHardwareNEO(
-        //             MotorIdConstants.FRONT_LEFT_DRIVING_CAN_ID,
-        //             MotorIdConstants.FRONT_LEFT_TURNING_CAN_ID,
-        //             FRONT_LEFT_CHASSIS_ANGULAR_OFFSET, "front left"));
-        //     frontRight = new SwerveModule(new SwerveModuleHardwareNEO(
-        //             MotorIdConstants.FRONT_RIGHT_DRIVING_CAN_ID,
-        //             MotorIdConstants.FRONT_RIGHT_TURNING_CAN_ID,
-        //             FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET, "front right"));
-        //     rearLeft = new SwerveModule(new SwerveModuleHardwareNEO(
-        //             MotorIdConstants.REAR_LEFT_DRIVING_CAN_ID,
-        //             MotorIdConstants.REAR_LEFT_TURNING_CAN_ID,
-        //             REAR_LEFT_CHASSIS_ANGULAR_OFFSET, "rear left"));
-        //     rearRight = new SwerveModule(new SwerveModuleHardwareNEO(
-        //             MotorIdConstants.REAR_RIGHT_DRIVING_CAN_ID,
-        //             MotorIdConstants.REAR_RIGHT_TURNING_CAN_ID,
-        //             REAR_RIGHT_CHASSIS_ANGULAR_OFFSET, "rear right"));
-        //     return new DriveSubsystem(frontLeft, frontRight, rearLeft, rearRight, gyro,
-        //             Constants.DriveControlConstants.ALPHA_TRACK_WIDTH,
-        //             Constants.DriveControlConstants.ALPHA_TRACK_WIDTH);
-        // } else
-        if (robotType == RobotType.BETA || robotType == RobotType.BUBBLES || robotType == RobotType.MOZART) {
-            frontLeft = new SwerveModule(new SwerveModuleHardwareVortex(
+        if (robotType == RobotType.ALPHA) {
+             frontLeft = new SwerveModule(new SwerveModuleHardwareVortex(
                     MotorIdConstants.FRONT_LEFT_DRIVING_CAN_ID,
                     MotorIdConstants.FRONT_LEFT_TURNING_CAN_ID,
                     FRONT_LEFT_CHASSIS_ANGULAR_OFFSET, "front left"));
@@ -101,8 +81,29 @@ public class SubsystemFactory {
                     MotorIdConstants.REAR_RIGHT_TURNING_CAN_ID,
                     REAR_RIGHT_CHASSIS_ANGULAR_OFFSET, "rear right"));
             return new DriveSubsystem(frontLeft, frontRight, rearLeft, rearRight, gyro,
-                    Constants.DriveControlConstants.BETA_XTRACK_WIDTH,
-                    Constants.DriveControlConstants.BETA_YTRACK_WIDTH);
+                    Constants.DriveControlConstants.COMP_TRACK_WIDTH,
+                    Constants.DriveControlConstants.COMP_TRACK_LENGTH);
+        // } else
+        // if (robotType == RobotType.BETA || robotType == RobotType.BUBBLES || robotType == RobotType.MOZART) {
+        //     frontLeft = new SwerveModule(new SwerveModuleHardwareVortex(
+        //             MotorIdConstants.FRONT_LEFT_DRIVING_CAN_ID,
+        //             MotorIdConstants.FRONT_LEFT_TURNING_CAN_ID,
+        //             FRONT_LEFT_CHASSIS_ANGULAR_OFFSET, "front left"));
+        //     frontRight = new SwerveModule(new SwerveModuleHardwareVortex(
+        //             MotorIdConstants.FRONT_RIGHT_DRIVING_CAN_ID,
+        //             MotorIdConstants.FRONT_RIGHT_TURNING_CAN_ID,
+        //             FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET, "front right"));
+        //     rearLeft = new SwerveModule(new SwerveModuleHardwareVortex(
+        //             MotorIdConstants.REAR_LEFT_DRIVING_CAN_ID,
+        //             MotorIdConstants.REAR_LEFT_TURNING_CAN_ID,
+        //             REAR_LEFT_CHASSIS_ANGULAR_OFFSET, "rear left"));
+        //     rearRight = new SwerveModule(new SwerveModuleHardwareVortex(
+        //             MotorIdConstants.REAR_RIGHT_DRIVING_CAN_ID,
+        //             MotorIdConstants.REAR_RIGHT_TURNING_CAN_ID,
+        //             REAR_RIGHT_CHASSIS_ANGULAR_OFFSET, "rear right"));
+        //     return new DriveSubsystem(frontLeft, frontRight, rearLeft, rearRight, gyro,
+        //             Constants.DriveControlConstants.BETA_TRACK_WIDTH,
+        //             Constants.DriveControlConstants.BETA_TRACK_LENGTH);
         // } else if (robotType == RobotType.MOZART) {
         //     frontLeft = new SwerveModule(new SwerveModuleHardwareNEO(
         //             MotorIdConstants.FRONT_LEFT_DRIVING_CAN_ID,
@@ -135,7 +136,7 @@ public class SubsystemFactory {
     }
 
     public Gyro buildGyro() {
-        if (robotType == RobotType.COMP || robotType == RobotType.BETA || robotType == RobotType.BUBBLES || robotType == RobotType.MOZART) {
+        if (robotType == RobotType.ALPHA || robotType == RobotType.BETA || robotType == RobotType.BUBBLES || robotType == RobotType.MOZART) {
             return new Gyro(new GyroHardware());
         } else {
             return new Gyro(new GyroPlacebo());

@@ -66,6 +66,7 @@ import frc.robot.subsystems.drive.DriveSubsystem;
                         drive.runCharacterization(voltage);
                         velocitySamples.add(drive.getFFCharacterizationVelocity());
                         voltageSamples.add(voltage);
+                        System.out.println("yayyyyyyyyyyyyyyyyyyyyyyyy");
                         },
                         drive)
 
