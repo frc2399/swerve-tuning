@@ -42,30 +42,17 @@ public final class Constants {
     public static final double MAIN_LOOP_FREQUENCY_HZ = 50;
     public static final int MAIN_LOOP_FREQUENCY_MS = (int) (1000 / MAIN_LOOP_FREQUENCY_HZ);
     public static final double LOGGING_FREQUENCY_HZ = 10;
-    public static final int LOGGING_FREQUENCY_MS = (int) (1000 / LOGGING_FREQUENCY_HZ);
-    public static final AngularVelocity ALGAE_INTAKE_SPEED = MotorConstants.NEO550_FREE_SPEED.times(1);
-    public static final AngularVelocity ALGAE_OUTAKE_SPEED = MotorConstants.NEO550_FREE_SPEED.times(-0.50);
     public static final double DRIVETRAIN_MAX_SPEED_MPS = 4.8;
     public static final double DRIVETRAIN_MAX_ANGULAR_SPEED_RPS = 2 * Math.PI;
   }
 
   public static class DriveControlConstants {
     public static final int DRIVER_CONTROLLER_PORT = 0;
-    public static final int OPERATOR_CONTROLLER_PORT = 1;
-    public static final double DRIVE_DEADBAND = 0.1;
-    public static final boolean FIELD_ORIENTED_DRIVE = true;
-
-    public static final double SLOW_DRIVE_FACTOR = 0.25;
-    public static final double DRIVE_FACTOR = 1.0;
-
-    public static final Distance MOZART_TRACK_LENGTH = Meters.of(0.4954);
-    public static final Distance MOZART_TRACK_WIDTH = Inches.of(26 - (2 * 1.75));
-    // replace if needed
-
-    // we got the 2 below numbers from blake at 6:57 bon 03/13
-    public static final Distance BETA_TRACK_WIDTH = Inches.of(20.5);
-    public static final Distance BETA_TRACK_LENGTH = Inches.of(26.5);
-
+    public static final int TUNING_CONTROLLER_PORT = 1;
+        public static final double DRIVE_DEADBAND = 0.1;
+        public static final boolean FIELD_ORIENTED_DRIVE = true;
+        public static final double LOW_BATTERY_VOLTAGE = 11.0;
+   
     public static final Distance COMP_TRACK_WIDTH = Inches.of(20.5);
     public static final Distance COMP_TRACK_LENGTH = Inches.of(26.5);
 
