@@ -4,23 +4,17 @@
 
 package frc.robot;
 
-import static edu.wpi.first.units.Units.Degrees;
-
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveControlConstants;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.gyro.Gyro;
+import frc.robot.util.DriveCommands;
 import frc.robot.vision.VisionPoseEstimator;
-import frc.robot.vision.LimelightHelpers.PoseEstimate;
-import frc.robot.util.*;
 
 public class RobotContainer {
   private SubsystemFactory subsystemFactory = new SubsystemFactory();
@@ -29,14 +23,11 @@ public class RobotContainer {
   // this is public because we need to run the visionPoseEstimator periodic from
   // Robot
   public VisionPoseEstimator visionPoseEstimator = new VisionPoseEstimator(drive, subsystemFactory.getRobotType());
-  public CommandFactory commandFactory = new CommandFactory(drive, gyro);
 
   private static SendableChooser<Command> autoChooserChar = new SendableChooser<>();
 
   private static final CommandXboxController driverController = new CommandXboxController(
       DriveControlConstants.DRIVER_CONTROLLER_PORT);
-  private static final CommandXboxController operatorController = new CommandXboxController(
-      DriveControlConstants.OPERATOR_CONTROLLER_PORT);
 
   public RobotContainer() {
     // next chunk comes from AdvantageKit's SparkSwerveTemplate; per the license, here is their disclaimer
@@ -51,7 +42,6 @@ public class RobotContainer {
 
     DriverStation.silenceJoystickConnectionWarning(true);
     configureDefaultCommands();
-    configureButtonBindingsDriver();
     setUpAuton();
   }
 
@@ -73,10 +63,6 @@ public class RobotContainer {
         true));
   }
 
-  private void configureButtonBindingsDriver() {
-    
-  }
-
   private void setUpAuton() {
     // SmartDashboard.putData("Autos/Selector", autoChooser);
 
@@ -94,48 +80,9 @@ public class RobotContainer {
         "Drive Simple FF Characterization", DriveCommands.feedforwardCharacterization(drive));
 
     SmartDashboard.putData("Auto Chooser (char)", autoChooserChar);
-
-    SmartDashboard.putData("reset odometry for facing red wall", resetOdometryRed());
-    SmartDashboard.putData("reset odometry for facing blue wall", resetOdometryBlue());
   }
 
   public Command getAutonomousCommand() {
     return autoChooserChar.getSelected();
   }
-
-  public Command resetOdometryRed() {
-    return (gyro.setYaw(Degrees.of(0))).ignoringDisable(true).andThen(
-
-        Commands.runOnce(() ->
-
-        {
-
-          SmartDashboard.putBoolean("reseting odometry red", true);
-          var poseEstimate = visionPoseEstimator.getPoseEstimate();
-          poseEstimate.ifPresent((PoseEstimate pose) -> {
-            var poseCopy = pose.pose;
-            drive.resetOdometry(new Pose2d(poseCopy.getTranslation(), new Rotation2d(gyro.getYaw())));
-          });
-
-        }).ignoringDisable(true));
-  }
-
-  public Command resetOdometryBlue() {
-
-    return (gyro.setYaw(Degrees.of(180)).ignoringDisable(true)).andThen(
-        Commands.runOnce(() ->
-
-        {
-
-          SmartDashboard.putBoolean("reseting odometry blue", true);
-          var poseEstimate = visionPoseEstimator.getPoseEstimate();
-          poseEstimate.ifPresent((PoseEstimate pose) -> {
-            var poseCopy = pose.pose;
-            drive.resetOdometry(new Pose2d(poseCopy.getTranslation(), new Rotation2d(gyro.getYaw())));
-          });
-
-        }).ignoringDisable(true));
-  }
-
-
 }
